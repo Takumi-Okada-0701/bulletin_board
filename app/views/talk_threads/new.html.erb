@@ -1,0 +1,24 @@
+<% if @talk_thread.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger text-left">
+        <ul>
+            <% @talk_thread.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+<h1 class="mb-5">スレッド作成</h1>
+<%= form_with model: @talk_thread, local: true do |f| %>
+    <div class="form-group">
+        <%= f.text_field :title, autofocus: true, autocomplete: "title", class: 'form-control',placeholder: 'スレッドのタイトル' %>
+    </div>
+    <div class="form-group py-3">
+        <h3 class="mb-3">カテゴリー選択(複数選択可)</h3>
+        <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+            <%= b.label class: 'mr-3' do %>
+                <%= b.check_box(class: 'mr-1') + b.text %>
+            <% end %>
+        <% end %>
+    </div>
+    <%= f.submit :作成, class: 'btn btn-primary' %>
+<% end %>

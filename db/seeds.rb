@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# db/seeds/以下のファイルを読み込み
+development_seed_files = Dir[ Rails.root.join('db', 'seeds', '*.rb') ].sort
+
+ActiveRecord::Base.transaction do
+    # 読み込んだファイルをループ
+    development_seed_files.each do |file|
+        puts "execute #{File.basename(file)} seed"
+        # ファイルを読み込むと同時に実行
+        load(file)
+    end
+end

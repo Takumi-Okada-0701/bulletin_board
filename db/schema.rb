@@ -10,7 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_115453) do
+ActiveRecord::Schema.define(version: 2020_07_18_015756) do
+
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "talk_thread_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["talk_thread_id"], name: "index_responses_on_talk_thread_id"
+    t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
+  create_table "talk_thread_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "talk_thread_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_talk_thread_categories_on_category_id"
+    t.index ["talk_thread_id"], name: "index_talk_thread_categories_on_talk_thread_id"
+  end
+
+  create_table "talk_threads", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_talk_threads_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -25,4 +58,9 @@ ActiveRecord::Schema.define(version: 2020_07_15_115453) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "responses", "talk_threads"
+  add_foreign_key "responses", "users"
+  add_foreign_key "talk_thread_categories", "categories"
+  add_foreign_key "talk_thread_categories", "talk_threads"
+  add_foreign_key "talk_threads", "users"
 end

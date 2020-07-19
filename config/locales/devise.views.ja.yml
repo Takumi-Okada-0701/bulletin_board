@@ -15,16 +15,16 @@ ja:
         user:
           attributes:
             email:
-              blank: "%{attribute}を入力してください"
-              taken: "この%{attribute}は既に使われています"
+              blank: "を入力してください"
+              taken: "は既に使われています"
             password:
-              blank: "%{attribute}を入力してください"
-              too_short: "%{attribute}は6文字以上入力してください"
+              blank: "を入力してください"
+              too_short: "は6文字以上入力してください"
             name:
-              blank: "%{attribute}を入力してください"
-              too_long: "%{attribute}は30文字以内で入力してください"
+              blank: "を入力してください"
+              too_long: "は30文字以内で入力してください"
             password_confirmation:
-              confirmation: "パスワードとパスワード(確認)の値が一致しません"
+              confirmation: "がパスワードの値と一致しません"
 
   devise:
     confirmations:

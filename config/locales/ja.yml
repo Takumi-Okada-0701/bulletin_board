@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    attributes:
+      response:
+        content: 文章
+      talk_thread:
+        title: タイトル

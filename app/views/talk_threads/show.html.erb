@@ -1,0 +1,38 @@
+<% if @response.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger text-left">
+        <ul>
+            <% @response.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+<div class="text-left">
+    <h1 class=""><%= @talk_thread.title %></h1>
+    <div>
+     <% @talk_thread.categories.each do |category| %>
+        <span class="badge badge-secondary"><%= category.name %></span>
+     <% end %>
+    </div>
+    <hr>
+    <div class="py-3">
+        <% @responses.each_with_index do |response, i| %>
+            <div class="border bg-light mb-2 p-1">
+                <div class="p-1 mb-2">
+                    <b class="mr-3"><%= i+1 %></b>
+                    <span class="mr-3"><%= response.user.name %>さん</span>
+                    <time><%= response.created_at %></time>
+                </div>
+                <p class="p-1"><%= simple_format(response.content) %></p>
+            </div>
+        <% end %>
+    </div>
+    <% if user_signed_in? %>
+        <%= form_with model: @response, local: true do |f| %>
+            <div class="form-group">
+                <%= f.text_area :content, autocomplete: "content", class: 'form-control',placeholder: '投稿する文章を入力してください' %>
+            </div>
+            <%= f.submit :投稿, class: 'btn btn-primary' %>
+        <% end %>
+    <% end %>
+</div>

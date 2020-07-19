@@ -1,3 +1,30 @@
-<nav class="navbar navbar-dark bg-primary">
-    <%= link_to '掲示板アプリ', root_path, class: 'navbar-brand'%>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <%= link_to '掲示板', root_path, class: 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-menu" aria-controls="header-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="header-menu">
+        <%= form_with url: search_talk_threads_path, method: 'GET', local: true, class: 'form-inline my-2 my-lg-0 mr-auto' do |f| %>
+            <%= f.search_field :word, class: 'form-control mr-sm-2',placeholder: 'スレッドを検索' %>
+            <%= f.submit :検索, class: 'btn btn-outline-light my-2 my-sm-0' %>
+        <% end %>
+        </form>
+        <ul class="navbar-nav">
+            <% if user_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to 'スレッドを作成', new_talk_thread_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to current_user.name, edit_user_registration_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to 'ログアウト', destroy_user_session_path, class: 'nav-link', method: :delete, data: { confirm: "ログアウトしてもよろしいですか？"} %>
+                </li>
+            <% else %>
+                <li class="nav-item">
+                    <%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %>
+                </li>
+            <% end %>
+        </ul>
+    </div>
 </nav>

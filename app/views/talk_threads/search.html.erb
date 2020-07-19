@@ -1,12 +1,12 @@
-<h1>スレッド一覧</h1>
+<h1>検索結果：<%= @word %></h1>
 <div id="talk_threads" class="mt-5">
 	<% @talk_threads.each do |talk_thread| %>
-		<%= link_to talk_thread do %>
+		<%= link_to talk_thread_path(talk_thread.id) do %>
 			<div class="card bg-light mb-3">
 				<div class="card-body">
 					<%= talk_thread.title %>
 				</div>
 			</div>
-    	<% end %>
+		<% end %>
 	<% end %>
 </div>
